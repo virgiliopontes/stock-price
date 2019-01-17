@@ -57,12 +57,6 @@ const tabela = porps =>{
  
 }
 
-// Create a Wrapper component that'll render a <section> tag with some styles
-const Wrapper = styled.section`
-  padding: 4em;
-  background: papayawhip;
-`;
-
 const getStocksPrice = async props =>{
 
     const url_price = 'https://api.iextrading.com/1.0/stock/';
