@@ -3,10 +3,11 @@ import Grafico from '../../components/Grafico';
 import styled from 'styled-components';
 
 const Title = styled.label`
-  font-size: 1em;
-  text-align: center;
-  color: black;
+    font-size: 1em;
+    text-align: center;
+    color: black;
 `;
+
 const MarketCap = valor =>{
     if((valor/1000000000000)>=1){
         return (valor/1000000000000).toFixed(3)+'T';
@@ -24,32 +25,34 @@ const MarketCap = valor =>{
 const tabela = porps =>{
     if(porps.dataStock.marketCap!==undefined && porps.dataStock.marketCap!=='' ){
 
-        return(  <table style={{width:500, height:300}}>
-                    <tr>
-                        <th>                   
-                            Market Cap: {MarketCap(porps.dataStock.marketCap)}
-                        </th>
-                        <th>
-                            Open: U$ {porps.dataStock.open}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            Low Price: U$ {porps.dataStock.low}
-                        </th>
-                        <th>
-                            High Price: U$ {porps.dataStock.high}
-                        </th>
-                    </tr>
-                    <tr>
-                        <th>
-                            52 Week Range: {porps.dataStock.week52High} - {porps.dataStock.week52Low}
-                        </th>
-                        <th>
-                            
-                        </th>
-                    </tr>
-                </table>);
+        return( 
+            <table style={{width:500, height:300}}>
+                <tr>
+                    <th>                   
+                        Market Cap: {MarketCap(porps.dataStock.marketCap)}
+                    </th>
+                    <th>
+                        Open: U$ {porps.dataStock.open}
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        Low Price: U$ {porps.dataStock.low}
+                    </th>
+                    <th>
+                        High Price: U$ {porps.dataStock.high}
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        52 Week Range: {porps.dataStock.week52High} - {porps.dataStock.week52Low}
+                    </th>
+                    <th>
+                        
+                    </th>
+                </tr>
+            </table>
+        );
 
     }else{
         return '';
@@ -84,14 +87,10 @@ var salvar = (stockData,props) =>{
     if(stockData!==''&&stockData!=='Unknown symbol'&&stockData!=='Not Found'){
        console.log(stockData);
        var dataJson = JSON.parse(stockData);
-       dataStock.stockPrice = 'USD $'+dataJson.latestPrice;
-       dataStock.companyName = dataJson.companyName;
-       dataStock.marketCap = dataJson.marketCap;
-       dataStock.open = dataJson.open;
-       dataStock.high = dataJson.high;
-       dataStock.low = dataJson.low;
-       dataStock.week52High = dataJson.week52High;
-       dataStock.week52Low = dataJson.week52Low;
+       dataStock.stockPrice = dataJson.latestPrice;
+
+       //LEFT JOIN entre Arrays
+       Object.assign(dataStock,dataJson);
     }
 
     props.setValues(dataStock);
@@ -139,7 +138,7 @@ const FormComponent = props => (
        
         <div>
             <h1>{props.dataStock.companyName}</h1>
-            <h3>{props.dataStock.stockPrice}</h3>
+            <h3>{props.dataStock.stockPrice==undefined ? '' : 'USD $'+props.dataStock.stockPrice}</h3>
         </div>
         <center>
             <table>

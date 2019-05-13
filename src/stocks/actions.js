@@ -2,7 +2,7 @@ import { STOCKS_TEXT, STOCKS_SUBMIT, STOCKS_SETVALUES, STOCKS_SETDATACHART } fro
 
 export const textAction = tagStock => ({
     type: STOCKS_TEXT,
-    tagStock,
+    tagStock
 });
 
 export const submitAction = () => ({
@@ -11,7 +11,7 @@ export const submitAction = () => ({
 
 export const setValues = (dataStock) => ({
     type: STOCKS_SETVALUES,
-    dataStock: dataStock
+    dataStock
 });
 
 export const setDataChart = (dataChart) => ({
