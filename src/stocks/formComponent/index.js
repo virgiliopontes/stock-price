@@ -22,9 +22,9 @@ const MarketCap = valor =>{
 }
 
 const tabela = porps =>{
-    if(porps.dataStock.marketCap!==undefined){
+    if(porps.dataStock.marketCap!==undefined && porps.dataStock.marketCap!=='' ){
 
-        return(  <table style={{width:400, height:300}}>
+        return(  <table style={{width:500, height:300}}>
                     <tr>
                         <th>                   
                             Market Cap: {MarketCap(porps.dataStock.marketCap)}
@@ -35,10 +35,10 @@ const tabela = porps =>{
                     </tr>
                     <tr>
                         <th>
-                            Low Price: {porps.dataStock.low}
+                            Low Price: U$ {porps.dataStock.low}
                         </th>
                         <th>
-                            High Price: {porps.dataStock.high}
+                            High Price: U$ {porps.dataStock.high}
                         </th>
                     </tr>
                     <tr>
@@ -69,19 +69,20 @@ const getStocksPrice = async props =>{
 }
 
 var salvar = (stockData,props) =>{
-var  dataStock =    {
-                        'stockPrice': '',
-                        'companyName' : 'Código de Ação desconhecido',
-                        'marketCap':  '',
-                        'open': '',
-                        'high': '',
-                        'low': '',
-                        'week52High': '',
-                        'week52Low': ''
-                    }
 
-    if(stockData!==''&&stockData!=='Unknown symbol'){
-       console.log(JSON.parse(stockData));
+    var  dataStock =    {
+        'stockPrice': '',
+        'companyName' : 'Código de Ativo desconhecido',
+        'marketCap':  '',
+        'open': '',
+        'high': '',
+        'low': '',
+        'week52High': '',
+        'week52Low': ''
+    }
+
+    if(stockData!==''&&stockData!=='Unknown symbol'&&stockData!=='Not Found'){
+       console.log(stockData);
        var dataJson = JSON.parse(stockData);
        dataStock.stockPrice = 'USD $'+dataJson.latestPrice;
        dataStock.companyName = dataJson.companyName;
@@ -99,7 +100,7 @@ var  dataStock =    {
 var MontarGrafico = (mapa,props) =>{
     var dados_grafico=[];
 
-    if(mapa!=='Unknown symbol'){
+    if(mapa!=='Unknown symbol' && mapa!=='Forbidden'){
         var dadosJons = JSON.parse(mapa);
 
        
@@ -129,7 +130,7 @@ const FormComponent = props => (
         props.submitAction();
         getStocksPrice(props);
     }}>
-        <h1>Digite o Código da Ação abaixo:</h1>
+        <h1>Digite o Código do Ativo abaixo:</h1>
         <div>
             <Title>Ação:</Title>
             <input onChange={event => props.textAction(event.target.value)} value={props.tagStock} ></input>
